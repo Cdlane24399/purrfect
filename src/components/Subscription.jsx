@@ -1,10 +1,7 @@
 import { Reveal, Icon } from './ui.jsx'
 import { subscriptions, formatPrice } from '../data/products.js'
-import { useCartActions } from '../lib/cart.jsx'
 
 export default function Subscription() {
-  const { add } = useCartActions()
-
   return (
     <section id="subscribe" className="relative py-28 sm:py-36">
       <div className="shell grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-12">
@@ -28,7 +25,7 @@ export default function Subscription() {
           </Reveal>
           <Reveal delay={0.18}>
             <ul className="mt-8 space-y-3 text-[13.5px] text-bark/85">
-              {['Skip, pause or cancel any time', 'Members save up to 15% on everything', 'Replacement parts at 85%+ less waste'].map(
+              {['Skip, pause or cancel any time', 'Members save up to 15% on everything', 'Replacement parts, not replacements'].map(
                 (t) => (
                   <li key={t} className="flex items-center gap-3">
                     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-warm text-moss">
@@ -89,20 +86,13 @@ export default function Subscription() {
                       ))}
                     </ul>
 
-                    <button
-                      onClick={() =>
-                        add({
-                          id: `sub-${s.id}`,
-                          name: s.name,
-                          sub: 'Quarterly subscription',
-                          price: s.quarterly,
-                        })
-                      }
+                    <a
+                      href="#waitlist"
                       className={`group mt-auto inline-flex items-center justify-center gap-3 rounded-full px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] transition-all duration-500 ease-silk hover:gap-4 active:scale-[0.97] ${
                         featured ? 'bg-cream text-ink' : 'bg-ink text-cream'
                       } mt-7`}
                     >
-                      Start {s.name.split(' ').slice(-1)}
+                      Notify me at launch
                       <span
                         className={`flex h-6 w-6 items-center justify-center rounded-full transition-transform duration-500 group-hover:translate-x-0.5 ${
                           featured ? 'bg-ink/10' : 'bg-cream/15'
@@ -110,7 +100,7 @@ export default function Subscription() {
                       >
                         <Icon.ArrowUR className="text-[13px]" />
                       </span>
-                    </button>
+                    </a>
                   </div>
                 </div>
               </Reveal>

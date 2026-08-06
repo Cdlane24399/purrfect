@@ -1,36 +1,47 @@
 import { useState } from 'react'
 import { Reveal, Icon } from './ui.jsx'
 
-function NewsletterCTA() {
+function WaitlistCTA() {
   const [email, setEmail] = useState('')
-  const [done, setDone] = useState(false)
-  const submit = (e) => {
+  const [state, setState] = useState('idle') // idle | sending | done | error
+  const submit = async (e) => {
     e.preventDefault()
-    if (!email) return
-    setDone(true)
+    if (!email || state === 'sending') return
+    setState('sending')
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      if (!res.ok) throw new Error('signup failed')
+      setState('done')
+    } catch {
+      setState('error')
+    }
   }
   return (
     <Reveal>
-      <div className="relative overflow-hidden rounded-[2.6rem] bg-espresso p-2 ring-1 ring-espresso soft-lift-lg">
+      <div id="waitlist" className="relative scroll-mt-24 overflow-hidden rounded-[2.6rem] bg-espresso p-2 ring-1 ring-espresso soft-lift-lg">
         <div className="relative overflow-hidden rounded-[2.2rem] bg-[radial-gradient(circle_at_50%_-20%,#3c2e21,#221912)] px-8 py-16 text-center sm:px-16 sm:py-20">
           <div className="pointer-events-none absolute -right-10 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(200,180,154,0.22),transparent_60%)] blur-2xl" />
           <span className="eyebrow justify-center text-clay">
             <span className="h-1 w-1 rounded-full bg-clay" /> Join the litter
           </span>
           <h2 className="mx-auto mt-6 max-w-2xl font-display text-[clamp(2rem,4.6vw,3.6rem)] font-light leading-[1.04] text-cream text-balance">
-            Be first to the <span className="it text-clay">first sale</span>.
+            Be first when we <span className="it text-clay">launch</span>.
           </h2>
           <p className="mx-auto mt-5 max-w-md text-[14px] leading-relaxed text-cream/70">
-            Early access to new drops, restocks and a member-only welcome offer. No noise — just
-            beautifully made things for your cat.
+            Our debut collection is in production. Join the waitlist for launch news, early access
+            and a member-only welcome offer.
           </p>
 
-          {done ? (
+          {state === 'done' ? (
             <div className="mx-auto mt-9 flex max-w-md items-center justify-center gap-3 rounded-full bg-cream/10 px-6 py-4 text-[13px] text-cream ring-1 ring-cream/15">
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sage/30 text-sage">
                 <Icon.Check className="text-[14px]" />
               </span>
-              You&apos;re on the list — welcome to Felt &amp; Fern.
+              You&apos;re on the list — we&apos;ll email you at launch.
             </div>
           ) : (
             <form
@@ -47,15 +58,24 @@ function NewsletterCTA() {
               />
               <button
                 type="submit"
-                className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-cream px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink transition-all duration-500 ease-silk hover:gap-3.5 active:scale-[0.97]"
+                disabled={state === 'sending'}
+                className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-cream px-6 py-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink transition-all duration-500 ease-silk hover:gap-3.5 active:scale-[0.97] disabled:opacity-60"
               >
-                Notify me
+                {state === 'sending' ? 'Joining…' : 'Notify me'}
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink/10 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-px">
                   <Icon.ArrowUR className="text-[13px]" />
                 </span>
               </button>
             </form>
           )}
+          {state === 'error' && (
+            <p className="mt-4 text-[12px] text-clay">
+              Something went wrong — please try again in a moment.
+            </p>
+          )}
+          <p className="mt-5 text-[11px] text-cream/45">
+            Only launch updates — no spam, unsubscribe anytime.
+          </p>
         </div>
       </div>
     </Reveal>
@@ -63,19 +83,32 @@ function NewsletterCTA() {
 }
 
 const COLS = [
-  { title: 'Shop', links: ['The Prey', 'The Arc', 'The Burrow', 'The Bliss', 'Curated sets'] },
-  { title: 'Fresh Play', links: ['Essentials', 'Deluxe', 'Replacement parts', 'Gift a box'] },
-  { title: 'Company', links: ['Our story', 'Materials', 'Sustainability', 'Stockists'] },
-  { title: 'Care', links: ['Shipping', 'Returns', '30-day guarantee', 'Contact'] },
+  {
+    title: 'Explore',
+    links: [
+      ['The collection', '#shop'],
+      ['Curated sets', '#sets'],
+      ['Fresh Play', '#subscribe'],
+      ['Materials & impact', '#materials'],
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      ['Our story', '#story'],
+      ['Join the waitlist', '#waitlist'],
+      ['Contact', 'mailto:info@feltfern.com'],
+    ],
+  },
 ]
 
 export default function Footer() {
   return (
     <footer className="relative pb-10 pt-8">
       <div className="shell">
-        <NewsletterCTA />
+        <WaitlistCTA />
 
-        <div className="mt-20 grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="mt-20 grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-4">
           {/* brand */}
           <div className="col-span-2">
             <div className="flex items-center gap-2.5">
@@ -99,7 +132,7 @@ export default function Footer() {
               Engineered around feline instinct and finished with a quieter footprint.
             </p>
             <div className="mt-6 flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-bark/55">
-              <span className="h-1.5 w-1.5 rounded-full bg-sage" /> On the road to a first sale
+              <span className="h-1.5 w-1.5 rounded-full bg-sage" /> Launching soon
             </div>
           </div>
 
@@ -109,10 +142,10 @@ export default function Footer() {
                 {c.title}
               </h4>
               <ul className="mt-4 space-y-2.5">
-                {c.links.map((l) => (
-                  <li key={l}>
-                    <a href="#shop" className="line-draw text-[13px] text-bark/85 hover:text-ink">
-                      {l}
+                {c.links.map(([label, href]) => (
+                  <li key={label}>
+                    <a href={href} className="line-draw text-[13px] text-bark/85 hover:text-ink">
+                      {label}
                     </a>
                   </li>
                 ))}
@@ -122,9 +155,9 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-bark/10 pt-8 text-[11px] uppercase tracking-[0.14em] text-bark/50 sm:flex-row">
-          <span>© {2026} Felt &amp; Fern · Designed for cats</span>
+          <span>© 2026 Felt &amp; Fern · Designed for cats</span>
           <span className="flex items-center gap-2">
-            <Icon.Paw className="text-[14px]" /> A demo storefront · prices from internal docs
+            <Icon.Paw className="text-[14px]" /> Launching soon
           </span>
         </div>
       </div>

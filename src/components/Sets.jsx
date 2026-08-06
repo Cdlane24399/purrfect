@@ -1,10 +1,7 @@
 import { Reveal, Icon } from './ui.jsx'
 import { sets, formatPrice } from '../data/products.js'
-import { useCartActions } from '../lib/cart.jsx'
 
 export default function Sets() {
-  const { add } = useCartActions()
-
   return (
     <section id="sets" className="relative bg-canvas py-28 sm:py-36">
       <div className="shell">
@@ -55,7 +52,7 @@ export default function Sets() {
                       </span>
                       {featured && (
                         <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.14em] text-clay">
-                          <Icon.Star className="text-[12px]" /> Most loved
+                          <Icon.Star className="text-[12px]" /> Our pick
                         </span>
                       )}
                     </div>
@@ -89,15 +86,13 @@ export default function Sets() {
                       ))}
                     </ul>
 
-                    <button
-                      onClick={() =>
-                        add({ id: s.id, name: s.name, sub: `${s.tier} set`, price: s.price })
-                      }
+                    <a
+                      href="#waitlist"
                       className={`group mt-8 inline-flex items-center justify-center gap-3 rounded-full px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] transition-all duration-500 ease-silk hover:gap-4 active:scale-[0.97] ${
                         featured ? 'bg-cream text-ink' : 'bg-ink text-cream'
                       }`}
                     >
-                      Add the set
+                      Notify me at launch
                       <span
                         className={`flex h-6 w-6 items-center justify-center rounded-full transition-transform duration-500 group-hover:translate-x-0.5 ${
                           featured ? 'bg-ink/10' : 'bg-cream/15'
@@ -105,7 +100,7 @@ export default function Sets() {
                       >
                         <Icon.ArrowUR className="text-[13px]" />
                       </span>
-                    </button>
+                    </a>
                   </div>
                 </div>
               </Reveal>

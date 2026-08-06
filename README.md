@@ -1,35 +1,33 @@
-# Felt & Fern — Storefront (Demo)
+# Felt & Fern — Storefront
 
-A high-end, customer-facing demo storefront for **Felt & Fern**, the minimalist cat-toy brand.
-Built to show off the four launch products with a branded hero film, interactive 3D models,
-and a working (mock) cart — using real pricing pulled from the internal docs.
-
-> This is a first-version demo. Cart + checkout are mocked client-side (no payment is taken).
+The customer-facing site for **Felt & Fern**, the minimalist cat-toy brand. The debut
+collection is presented as **launching soon**: there is no cart or checkout — every product
+CTA feeds the waitlist signup, which stores contacts in a Resend audience.
 
 ## Highlights
 
 - **Felt & Fern hero video** — a full-bleed cinematic header. `src/assets/video/hero-felt-fern.mp4`
   carries the refreshed brand system and uses `src/assets/brand/hero-felt-fern-poster.jpg` as its
-  poster. The older AI Gateway generation scripts remain in `scripts/` for future video refreshes.
+  poster. The AI Gateway generation scripts remain in `scripts/` for future video refreshes.
 - **Interactive 3D** — real product models (`<model-viewer>`) you can drag, spin and zoom
   (The Prey, The Arc, The Burrow) in the Spotlight + 3D gallery sections.
 - **Editorial-luxury design system** — Fraunces (display) + Plus Jakarta Sans (UI), warm
   cream/espresso palette, double-bezel cards, button-in-button CTAs, film-grain overlay,
   spring-physics motion, and scroll-reveal choreography (Framer Motion).
-- **Working mock cart** — add/remove, quantity steppers, free-shipping progress, localStorage
-  persistence, slide-in drawer, and an animated checkout success state.
-- **Real pricing from the docs** — the four launch SKUs, the Good-Better-Best
-  curated sets, and the Fresh Play subscription tiers (`task-1.4-pricing-strategy`).
+- **Real waitlist** — the footer form posts to `api/waitlist.js`, which upserts the contact
+  into the "Felt & Fern Waitlist" audience in Resend (`RESEND_API_KEY` comes from the
+  Vercel Marketplace integration).
 
 ## Stack
 
-React 18 · Vite 6 · Tailwind CSS 3 · Framer Motion · `@google/model-viewer`
+React 18 · Vite 6 · Tailwind CSS 3 · Framer Motion · `@google/model-viewer` · Resend (waitlist)
 
 ## Run
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
+npm run dev        # http://localhost:5173 (UI only — /api/waitlist needs `vercel dev`)
+vercel dev         # UI + the waitlist function
 npm run build      # production build → dist/
 ```
 
@@ -53,15 +51,10 @@ Notes from building this:
 - Below a $100 gateway balance, video is rate-limited to **1 request/minute** — scripts disable
   SDK retries and wait out 429s.
 
-## Assets
-
-- Product photography + 3D GLBs are sourced from the parent project
-  (`../progress-app/src/assets`, `../3d-assets`) and copied into `src/assets/`.
-- Logo: the Felt & Fern F&F botanical monogram in the nav, footer, and favicon.
-
 ## Structure
 
 ```
+api/waitlist.js           # Vercel function → Resend audience
 src/
   App.jsx                 # page composition
   components/
@@ -70,15 +63,13 @@ src/
     Marquee.jsx           # materials marquee
     Story.jsx             # brand philosophy / positioning
     Spotlight.jsx         # The Arc, interactive 3D, on espresso
-    Collection.jsx        # 4-SKU shoppable bento
+    Collection.jsx        # 4-piece preview bento
     ModelGallery.jsx      # tabbed 3D viewer
     Sets.jsx              # Good-Better-Best tiers
     Subscription.jsx      # Fresh Play plans
     Materials.jsx         # sustainability + impact bento
-    Footer.jsx            # newsletter CTA + footer
-    CartDrawer.jsx        # slide-in cart + mock checkout
+    Footer.jsx            # waitlist CTA + footer
     ui.jsx                # icons, Reveal, Button, Bezel
-  data/products.js        # catalogue + pricing (from docs)
-  lib/cart.jsx            # cart context (localStorage)
+  data/products.js        # catalogue + pricing
 scripts/gen-video.mjs     # AI Gateway video generation
 ```

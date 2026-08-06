@@ -10,7 +10,6 @@ import Sets from './components/Sets.jsx'
 import Subscription from './components/Subscription.jsx'
 import Materials from './components/Materials.jsx'
 import Footer from './components/Footer.jsx'
-import CartDrawer from './components/CartDrawer.jsx'
 
 export default function App() {
   return (
@@ -29,7 +28,6 @@ export default function App() {
         <Materials />
       </main>
       <Footer />
-      <CartDrawer />
       <Analytics />
     </>
   )

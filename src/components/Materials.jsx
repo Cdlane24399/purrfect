@@ -36,7 +36,7 @@ export default function Materials() {
                   </p>
                   <div className="mt-9 grid grid-cols-3 gap-6">
                     {[
-                      ['85%+', 'less waste via refills'],
+                      ['4', 'pieces in our debut line'],
                       ['100%', 'plastic-free packaging'],
                       ['0', 'virgin plastic in play'],
                     ].map(([v, k]) => (
@@ -85,17 +85,21 @@ export default function Materials() {
             </div>
           </Reveal>
 
-          {/* market stat */}
+          {/* launch card */}
           <Reveal delay={0.06} className="md:col-span-2">
-            <div className="flex h-full flex-col justify-between rounded-[2rem] bg-sage/30 p-8 ring-1 ring-moss/20 soft-lift">
-              <span className="text-[11px] uppercase tracking-[0.16em] text-moss">The opportunity</span>
+            <a
+              href="#waitlist"
+              className="flex h-full flex-col justify-between rounded-[2rem] bg-sage/30 p-8 ring-1 ring-moss/20 soft-lift transition-transform duration-500 ease-silk hover:-translate-y-1"
+            >
+              <span className="text-[11px] uppercase tracking-[0.16em] text-moss">Launching soon</span>
               <div>
-                <div className="font-display text-5xl font-light text-bark">$4.5B</div>
+                <div className="font-display text-5xl font-light text-bark">Be first</div>
                 <p className="mt-2 text-[12px] leading-snug text-bark/70">
-                  cat-toy market by 2035 · 6.2% CAGR. We&apos;re building for the design-led 25–30%.
+                  Our four-piece debut is in production. Join the waitlist to be first through the
+                  door.
                 </p>
               </div>
-            </div>
+            </a>
           </Reveal>
 
           {/* image card 2 */}
@@ -123,7 +127,7 @@ export default function Materials() {
               <div>
                 <div className="font-display text-2xl font-light">30-day, cat-approved</div>
                 <p className="mt-2 text-[12px] leading-snug text-cream/60">
-                  If your cat shrugs, we refund. Safety-tested to ASTM F963 &amp; EN 71.
+                  If your cat shrugs, we refund. No forms, no fuss.
                 </p>
               </div>
             </div>

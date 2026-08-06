@@ -1,13 +1,10 @@
-import { Reveal, Button, Icon, Bezel } from './ui.jsx'
+import { Reveal, Icon } from './ui.jsx'
 import LazyModelViewer from './LazyModelViewer.jsx'
 import { products, modelLoaders, formatPrice } from '../data/products.js'
-import { useCartActions } from '../lib/cart.jsx'
 
 const arc = products.find((p) => p.id === 'arc')
 
 export default function Spotlight() {
-  const { add } = useCartActions()
-
   return (
     <section className="relative overflow-hidden bg-espresso py-24 text-cream sm:py-32">
       {/* glow */}
@@ -82,19 +79,17 @@ export default function Spotlight() {
 
           <Reveal delay={0.28}>
             <div className="mt-10 flex flex-wrap items-center gap-6">
-              <button
-                onClick={() =>
-                  add({ id: arc.id, name: arc.code, sub: arc.name, price: arc.price, image: arc.image })
-                }
+              <a
+                href="#waitlist"
                 className="group inline-flex items-center gap-3 rounded-full bg-cream px-7 py-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink transition-all duration-500 ease-silk hover:gap-4 active:scale-[0.97]"
               >
-                Add to cart — {formatPrice(arc.price)}
+                Notify me at launch
                 <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ink/10 transition-all duration-500 ease-silk group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105">
-                  <Icon.Bag className="text-[15px]" />
+                  <Icon.ArrowUR className="text-[15px]" />
                 </span>
-              </button>
+              </a>
               <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-cream/55">
-                <Icon.Check className="text-[15px] text-sage" /> CAD-engineered · verified
+                Launching at {formatPrice(arc.price)}
               </div>
             </div>
           </Reveal>

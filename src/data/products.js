@@ -1,6 +1,4 @@
-// Product catalogue. Pricing and specs are drawn from the Felt & Fern launch docs:
-// progress.json (the four launch SKUs) and task-1.4 pricing strategy
-// (Good-Better-Best sets + Fresh Play subscription).
+// Product catalogue — the four-piece launch line, curated sets and Fresh Play plans.
 
 import arcImg from '../assets/products/the-arc.jpeg'
 import burrowImg from '../assets/products/the-burrow.jpeg'
@@ -22,7 +20,7 @@ export const products = [
     category: 'Toys',
     price: 16,
     tagline: 'Handcrafted play, naturally.',
-    badge: 'Bestseller',
+    badge: 'Hand-knit',
     blurb:
       'Hand-knit from organic cotton with a hand-spun jute tail and a refillable catnip core. Weighted to skitter the way real prey moves.',
     materials: ['Organic cotton', 'Hand-spun jute', 'Refillable catnip'],
@@ -39,7 +37,7 @@ export const products = [
     category: 'Furniture',
     price: 89,
     tagline: 'Sculpture meets scratch.',
-    badge: 'CAD-engineered',
+    badge: 'Flagship',
     blurb:
       'A single ribbon of steam-bent FSC birch wrapped in replaceable natural sisal. Engineered as furniture first — a lounge your cat happens to love to claw.',
     materials: ['FSC birch ply', 'Natural sisal', 'Replaceable panel'],
@@ -84,7 +82,7 @@ export const products = [
   },
 ]
 
-// Good-Better-Best curated sets (task-1.4 pricing strategy).
+// Good-Better-Best curated sets.
 export const sets = [
   {
     id: 'minimalist-paw',
@@ -113,7 +111,7 @@ export const sets = [
   },
 ]
 
-// Fresh Play subscription (task-1.4 recurring revenue model).
+// Fresh Play subscription plans.
 export const subscriptions = [
   {
     id: 'essentials',
@@ -131,7 +129,7 @@ export const subscriptions = [
     monthly: 9.99,
     quarterly: 29.99,
     save: '15% off retail',
-    perks: ['5 new toys each season', '2 replacement parts', 'Organic catnip refill', 'Free carbon-neutral shipping'],
+    perks: ['5 new toys each season', '2 replacement parts', 'Organic catnip refill', 'Free shipping'],
     featured: true,
   },
 ]
