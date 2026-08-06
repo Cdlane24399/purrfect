@@ -1,6 +1,32 @@
-// Waitlist signup → Resend audience (provisioned via the Vercel Marketplace).
+// Waitlist signup → Resend audience (provisioned via the Vercel Marketplace),
+// plus a confirmation email. The email is best-effort: a send failure (e.g.
+// domain not yet verified) never fails the signup itself.
 const RESEND = 'https://api.resend.com'
 const AUDIENCE_NAME = 'Felt & Fern Waitlist'
+const FROM = 'Felt & Fern <info@feltfern.com>'
+
+const CONFIRM_SUBJECT = "You're on the list — Felt & Fern"
+const CONFIRM_HTML = `<!doctype html>
+<html>
+  <body style="margin:0;padding:0;background:#F7F3EC;font-family:Georgia,'Times New Roman',serif;color:#1A1510;">
+    <div style="max-width:520px;margin:0 auto;padding:40px 24px;">
+      <p style="text-align:center;font-size:13px;letter-spacing:0.24em;text-transform:uppercase;color:#1A1510;margin:0 0 28px;">Felt &amp; Fern</p>
+      <div style="background:#221912;border-radius:24px;padding:44px 36px;text-align:center;">
+        <p style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#C8B49A;margin:0 0 18px;">Join the litter</p>
+        <h1 style="font-weight:normal;font-size:30px;line-height:1.15;color:#F7F3EC;margin:0 0 18px;">You&rsquo;re on the list.</h1>
+        <p style="font-size:15px;line-height:1.6;color:#D8CFC2;margin:0;">
+          Our debut collection — a toy, a scratcher, a hideaway and a treat, all made from
+          natural materials — is in production now. You&rsquo;ll be the first to hear when it
+          launches, with early access and a member-only welcome offer.
+        </p>
+      </div>
+      <p style="text-align:center;font-size:12px;line-height:1.6;color:#8a7f72;margin:28px 0 0;">
+        You joined the waitlist at feltfern.com.<br/>
+        Only launch updates — no spam. Reply to this email any time to be removed.
+      </p>
+    </div>
+  </body>
+</html>`
 
 let audienceId // cached per warm instance
 
@@ -46,9 +72,25 @@ export default async function handler(req, res) {
       method: 'POST',
       body: JSON.stringify({ email }),
     })
-    return res.status(200).json({ ok: true })
   } catch (err) {
     console.error(err)
     return res.status(502).json({ error: 'Signup failed' })
   }
+
+  try {
+    await resend(key, '/emails', {
+      method: 'POST',
+      body: JSON.stringify({
+        from: FROM,
+        to: [email],
+        reply_to: 'info@feltfern.com',
+        subject: CONFIRM_SUBJECT,
+        html: CONFIRM_HTML,
+      }),
+    })
+  } catch (err) {
+    console.error('confirmation email failed:', err)
+  }
+
+  return res.status(200).json({ ok: true })
 }
