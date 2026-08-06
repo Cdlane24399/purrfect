@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Reveal, Icon } from './ui.jsx'
 import LazyModelViewer from './LazyModelViewer.jsx'
 import { products, modelLoaders, formatPrice } from '../data/products.js'
-import { useCartActions } from '../lib/cart.jsx'
 
 const modeled = products.filter((p) => p.model)
 
@@ -15,7 +14,6 @@ const ORBIT = {
 
 export default function ModelGallery() {
   const [active, setActive] = useState('prey')
-  const { add } = useCartActions()
   const p = modeled.find((m) => m.id === active)
 
   return (
@@ -34,8 +32,8 @@ export default function ModelGallery() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-5 max-w-md text-[14px] leading-relaxed text-bark/75">
-              Real product models — drag, spin and zoom each piece the way it sits in your room
-              before you ever add it to cart.
+              Real product models — drag, spin and zoom each piece the way it will sit in your
+              room, before launch day.
             </p>
           </Reveal>
         </div>
@@ -112,17 +110,15 @@ export default function ModelGallery() {
                       {p.name} · {formatPrice(p.price)}
                     </div>
                   </div>
-                  <button
-                    onClick={() =>
-                      add({ id: p.id, name: p.code, sub: p.name, price: p.price, image: p.image })
-                    }
+                  <a
+                    href="#waitlist"
                     className="group flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-cream transition-all duration-500 ease-silk hover:gap-3 active:scale-95"
                   >
-                    Add
+                    Notify me
                     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-cream/15 transition-transform duration-500 group-hover:translate-x-0.5">
-                      <Icon.Bag className="text-[12px]" />
+                      <Icon.ArrowUR className="text-[12px]" />
                     </span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

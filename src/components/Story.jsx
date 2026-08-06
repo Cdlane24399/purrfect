@@ -65,7 +65,7 @@ export default function Story() {
             <div className="absolute -bottom-8 -left-2 w-[58%] -rotate-3 rounded-[1.4rem] bg-espresso p-5 text-cream soft-lift-lg lg:-left-10">
               <div className="font-display text-4xl font-light">01</div>
               <p className="mt-2 text-[12px] leading-snug text-cream/80">
-                Designs distilled from a 25-concept gallery to a focused, four-piece debut.
+                Distilled from dozens of concepts to a focused, four-piece debut.
               </p>
             </div>
           </Reveal>

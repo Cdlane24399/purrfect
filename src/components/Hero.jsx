@@ -91,7 +91,7 @@ export default function Hero() {
               materials and designed to sit quietly in beautiful homes.
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <Button as="a" href="#shop">Shop the collection</Button>
+              <Button as="a" href="#shop">Preview the collection</Button>
               <Button as="a" href="#story" variant="ghost" icon={false}>
                 <span className="flex items-center gap-2">
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink/10 text-[13px]">
@@ -111,11 +111,10 @@ export default function Hero() {
             className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-cream/15 pt-6 text-[11px] uppercase tracking-[0.16em] text-cream/65"
           >
             <span className="flex items-center gap-2 text-cream/85">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sage" /> On screen · Confident cat walk
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sage" /> Launching soon · join the waitlist
             </span>
-            <span className="flex items-center gap-2"><Icon.Truck className="text-[15px]" /> Carbon-neutral shipping</span>
-            <span className="hidden items-center gap-2 sm:flex"><Icon.Shield className="text-[15px]" /> Safety-tested · ASTM F963</span>
-            <span className="hidden items-center gap-2 md:flex"><Icon.Paw className="text-[15px]" /> 30-day cat-approved</span>
+            <span className="flex items-center gap-2"><Icon.Leaf className="text-[15px]" /> Plastic-free packaging</span>
+            <span className="hidden items-center gap-2 sm:flex"><Icon.Paw className="text-[15px]" /> 30-day cat-approved</span>
           </motion.div>
         </div>
       </motion.div>
