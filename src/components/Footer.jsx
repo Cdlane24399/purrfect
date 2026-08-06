@@ -112,16 +112,20 @@ export default function Footer() {
           {/* brand */}
           <div className="col-span-2">
             <div className="flex items-center gap-2.5">
-              <svg viewBox="0 0 72 72" className="h-8 w-auto" fill="none" aria-hidden>
-                <circle cx="36" cy="36" r="31" stroke="currentColor" strokeWidth="3" />
-                <path
-                  d="M23 48V22h17M23 35h14M44 50V22M44 35c8 0 13-4 14-11"
-                  stroke="currentColor"
-                  strokeWidth="3.2"
+              <svg viewBox="0 0 24 24" className="h-8 w-auto text-ink" aria-hidden>
+                <circle cx="12" cy="12" r="12" fill="currentColor" />
+                <g
+                  transform="translate(6 6) scale(0.5)"
+                  fill="none"
+                  stroke="#F7F3EC"
+                  strokeWidth="1.4"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                />
-                <path d="M50 27c5 1 9 5 10 10-6 0-10-4-10-10Z" fill="currentColor" />
+                >
+                  <path d="M12 21V8" />
+                  <path d="M12 12c0-3 2.4-5.4 6-6-0.3 3.4-2.6 5.7-6 6Z" />
+                  <path d="M12 9c0-2.6-2-4.6-5-5 .2 2.9 2.2 4.8 5 5Z" />
+                </g>
               </svg>
               <span className="text-[14px] font-semibold uppercase tracking-[0.24em] text-ink">
                 Felt &amp; Fern

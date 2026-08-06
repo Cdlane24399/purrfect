@@ -22,6 +22,9 @@ CTA feeds the waitlist signup, which stores contacts in a Resend audience.
 
 React 18 · Vite 6 · Tailwind CSS 3 · Framer Motion · `@google/model-viewer` · Resend (waitlist)
 
+Logo: the Felt & Fern sprig mark (from the `felt-fern-hub` brand kit) inlined in the nav and
+footer, and as `public/favicon.svg`.
+
 ## Run
 
 ```bash
