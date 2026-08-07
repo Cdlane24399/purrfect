@@ -5,12 +5,13 @@ const RESEND = 'https://api.resend.com'
 const AUDIENCE_NAME = 'Felt & Fern Waitlist'
 const FROM = 'Felt & Fern <info@feltfern.com>'
 
-const CONFIRM_SUBJECT = "You're on the list — Felt & Fern"
-const CONFIRM_HTML = `<!doctype html>
+export const CONFIRM_SUBJECT = "You're on the list — Felt & Fern"
+export const CONFIRM_HTML = `<!doctype html>
 <html>
   <body style="margin:0;padding:0;background:#F7F3EC;font-family:Georgia,'Times New Roman',serif;color:#1A1510;">
     <div style="max-width:520px;margin:0 auto;padding:40px 24px;">
-      <p style="text-align:center;font-size:13px;letter-spacing:0.24em;text-transform:uppercase;color:#1A1510;margin:0 0 28px;">Felt &amp; Fern</p>
+      <img src="https://www.feltfern.com/email/felt-fern-mark.png" width="64" height="64" alt="" style="display:block;margin:0 auto 16px;border-radius:50%;" />
+      <p style="text-align:center;font-size:28px;line-height:1;color:#1A1510;margin:0 0 34px;">Felt <span style="color:#C8B49A;">&amp;</span> Fern</p>
       <div style="background:#221912;border-radius:24px;padding:44px 36px;text-align:center;">
         <p style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#C8B49A;margin:0 0 18px;">Join the litter</p>
         <h1 style="font-weight:normal;font-size:30px;line-height:1.15;color:#F7F3EC;margin:0 0 18px;">You&rsquo;re on the list.</h1>
